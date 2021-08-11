@@ -1,0 +1,27 @@
+<div class="bg-primary text-white bold p4 navbar">
+  <div class="flex space-between-content">
+    <a routerLink="" class="logo">VertHub</a>
+    <fa-icon
+      *ngIf="isMobile"
+      (click)="onToggleDropDown()"
+      [icon]="menuIcon"
+      class="cursor-pointer"
+    ></fa-icon>
+  </div>
+  <div
+    *ngIf="(isMobile && displayDropDown) || !isMobile"
+    class="buttonsWrapper"
+  >
+    <div *ngIf="loggedIn; else loggedOut" class="buttons text-white">
+      <a routerLink="dashboard/program" href="#">MyProgram</a>
+      <a routerLink="dashboard/hub">Hub</a>
+      <a routerLink="dashboard/profile">Profile</a>
+      <a (click)="logout()">Logout</a>
+    </div>
+    <ng-template #loggedOut>
+      <div class="buttons">
+        <a routerLink="/login">Login</a> <a routerLink="/signup">Sign Up</a>
+      </div>
+    </ng-template>
+  </div>
+</div>

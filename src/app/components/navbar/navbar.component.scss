@@ -1,0 +1,52 @@
+@import "../../../styles/variables";
+@import "../../../styles/colors";
+
+.navbar {
+  display: grid;
+  position: sticky;
+  top: 0;
+}
+.logo {
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: $light;
+}
+.buttonsWrapper {
+  margin: 40px 0 0 0;
+}
+.buttons {
+  text-align: center;
+  width: auto;
+  display: grid;
+
+  > * {
+    margin: 0 0 20px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid transparent;
+    &:hover {
+      cursor: pointer;
+      border-color: white;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media screen and (min-width: $isMobile) {
+  .navbar {
+    display: flex;
+  }
+  .buttonsWrapper {
+    margin: 0 0 0 auto;
+  }
+  .buttons {
+    display: flex;
+    > * {
+      margin: 0 0 0 15px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid transparent;
+    }
+  }
+}

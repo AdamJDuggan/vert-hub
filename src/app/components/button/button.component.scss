@@ -1,0 +1,49 @@
+@import "../../../styles/colors";
+
+// Default
+.button {
+  display: inline-block;
+  border-radius: 6px;
+  padding: 8px 12px;
+  background: inherit;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1, 1.1);
+  }
+  &:focus {
+    border: none;
+    outline: none !important;
+  }
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+// Sizes
+.small {
+  font-size: 14px;
+}
+.medium {
+  font-size: 20px;
+}
+.large {
+  font-size: 32px;
+}
+
+// Kinds
+.default {
+  background: light;
+  color: $dark;
+  border: 2px solid $dark !important;
+}
+.primary {
+  color: $white;
+  background: $primary;
+}
+.secondary {
+  color: $white;
+  background: $secondary;
+}
