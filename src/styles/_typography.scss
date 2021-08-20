@@ -6,6 +6,9 @@
 .italic {
   font-style: italic;
 }
+.underline {
+  text-decoration: underline;
+}
 
 @mixin font-size($fs-map) {
   @each $fs-breakpoint, $fs-font-size in $fs-map {
@@ -28,6 +31,10 @@ h6,
 p {
   margin: 0;
   padding: 0;
+}
+
+h2 {
+  font-size: 32px;
 }
 
 $h1-font-sizes: (

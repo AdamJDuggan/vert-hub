@@ -1,7 +1,7 @@
 <main class="flex-column align-center">
-  <h2 class="mb10">Login</h2>
+  <h2 class="mt4 mb10">Login</h2>
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()" class="mb4">
     <app-input
       controlName="email"
       [error]="onValidate('email', 'Please enter a valid email')"
@@ -16,6 +16,15 @@
       label="Password"
       class="mb6"
     ></app-input>
-    <app-button type="submit" value="Login"></app-button>
+    <app-button
+      [disabled]="this.form.status === 'INVALID'"
+      type="submit"
+      value="Login"
+      class="mb4"
+    ></app-button>
+    <p>
+      Don't have an account?
+      <a class="text-primary underline pl1 bold"> Sign up here </a>
+    </p>
   </form>
 </main>

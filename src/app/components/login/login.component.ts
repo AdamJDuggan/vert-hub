@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AsyncService } from 'src/app/services/async.service';
 
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -11,14 +12,17 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
   form: FormGroup;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private asyncService: AsyncService
+  ) {}
+
+  ngOnInit(): void {
     this.form = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required]),
     });
   }
-
-  ngOnInit(): void {}
 
   onValidate = (value: string, errorMessage: string) => {
     const res =

@@ -15,7 +15,6 @@ export class InputComponent implements OnInit {
   @Input() type: string;
   @Input() disabled: boolean;
   @Input() controlName: string;
-  warning: boolean;
 
   form: FormGroup;
 
