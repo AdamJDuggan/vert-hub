@@ -8,25 +8,25 @@ body {
   padding: 0;
 }
 
-.input,
-input,
-select {
-  padding: 5px;
-  min-height: 30px;
-  font-size: 16px;
-  border: none;
-  border-radius: 3px;
-  vertical-align: middle;
-  &Error {
-    &,
-    &:focus {
-      border-color: "red";
-    }
-  }
-  &:focus {
-    outline: none;
-  }
-}
+// .input,
+// input,
+// select {
+//   padding: 5px;
+//   min-height: 30px;
+//   font-size: 16px;
+//   border: none;
+//   border-radius: 3px;
+//   vertical-align: middle;
+//   &Error {
+//     &,
+//     &:focus {
+//       border-color: "red";
+//     }
+//   }
+//   &:focus {
+//     outline: none;
+//   }
+// }
 
 a {
   color: inherit;
@@ -126,14 +126,14 @@ label {
   }
 }
 
-// Input component
-.input {
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: center;
-}
-.inputError {
-  margin-top: 6px;
-  font-size: 14px;
-  color: $danger;
-}
+// // Input component
+// .input {
+//   margin-bottom: 10px;
+//   display: flex;
+//   justify-content: center;
+// }
+// .inputError {
+//   margin-top: 6px;
+//   font-size: 14px;
+//   color: $danger;
+// }

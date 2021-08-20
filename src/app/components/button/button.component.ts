@@ -10,12 +10,16 @@ export class ButtonComponent implements OnInit {
   @Input() size: string;
   @Input() kind: string;
   @Input() disabled: boolean;
+  @Input() class: string;
+  @Input() type: string;
 
   constructor() {
     this.size = 'medium';
     this.value = '';
     this.kind = 'default';
     this.disabled = false;
+    this.class = '';
+    this.type = 'button';
   }
 
   ngOnInit(): void {}

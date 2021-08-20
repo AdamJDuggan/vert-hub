@@ -1,20 +1,50 @@
+// Angualr
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+// State
+import { Store } from '@ngrx/store';
+import { clearUser, setUser } from '../reducers/auth.reducer';
+import { AppState } from '../models/app-state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   loggedIn$ = this.fireAuth.authState;
-
   constructor(
     public fireAuth: AngularFireAuth,
-    private afs: AngularFirestore
-  ) {}
+    private afs: AngularFirestore,
+    private store: Store<AppState>
+  ) {
+    this.loggedIn$.subscribe((user) => {
+      if (user) {
+        afs
+          .collection('users')
+          .doc(user.uid)
+          .ref.get()
+          .then((doc: any) => {
+            const { email, displayName } = doc.data();
+            this.store.dispatch(
+              setUser({
+                id: user.uid,
+                loggedIn: true,
+                email,
+                name: displayName,
+              })
+            );
+          });
+      } else {
+        this.store.dispatch(clearUser());
+      }
+    });
+  }
 
-  login = (email: string, password: string): Promise<any> => {
-    return this.fireAuth.signInWithEmailAndPassword(email, password);
+  login = (payload: { email: string; password: string }): Promise<any> => {
+    return this.fireAuth.signInWithEmailAndPassword(
+      payload.email,
+      payload.password
+    );
   };
   logout = () => this.fireAuth.signOut();
 
@@ -22,7 +52,7 @@ export class AuthService {
     return this.fireAuth
       .createUserWithEmailAndPassword(email, password)
       .then((res) => {
-        this.afs.doc('/users/' + email).set({
+        this.afs.doc('/users/' + res?.user?.uid).set({
           displayName: name,
           email,
         });

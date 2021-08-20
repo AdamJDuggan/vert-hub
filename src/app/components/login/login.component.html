@@ -1,2 +1,21 @@
-<h2>Login</h2>
-<app-button (click)="login()" value="Login" class="mr2"></app-button>
+<main class="flex-column align-center">
+  <h2 class="mb10">Login</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <app-input
+      controlName="email"
+      [error]="onValidate('email', 'Please enter a valid email')"
+      label="Email"
+      class="mb6"
+    >
+    </app-input>
+    <app-input
+      controlName="password"
+      [error]="onValidate('password', 'Please enter your password')"
+      type="password"
+      label="Password"
+      class="mb6"
+    ></app-input>
+    <app-button type="submit" value="Login"></app-button>
+  </form>
+</main>

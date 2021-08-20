@@ -35,9 +35,12 @@
 
 // Kinds
 .default {
-  background: light;
   color: $dark;
   border: 2px solid $dark !important;
+  &:hover {
+    background: $dark;
+    color: $light;
+  }
 }
 .primary {
   color: $white;

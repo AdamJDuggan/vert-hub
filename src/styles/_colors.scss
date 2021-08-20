@@ -7,7 +7,7 @@ $white: #fff;
 $info: #209cee;
 $success: #23d160;
 $warning: #ffd300;
-$danger: #ff3860;
+$danger: #b22222;
 
 $colors: (
   primary: #00d1b2,
@@ -19,7 +19,7 @@ $colors: (
   info: #209cee,
   success: #23d160,
   warning: #ffd300,
-  danger: #ff3860,
+  danger: #b22222,
 );
 
 @each $colorname, $color in $colors {

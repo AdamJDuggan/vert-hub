@@ -11,6 +11,8 @@
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   color: $light;
+  padding: 5px 0;
+  border-bottom: 1px solid transparent;
 }
 .buttonsWrapper {
   margin: 40px 0 0 0;
@@ -22,7 +24,7 @@
 
   > * {
     margin: 0 0 20px 0;
-    padding-bottom: 5px;
+    padding: 5px 0;
     border-bottom: 1px solid transparent;
     &:hover {
       cursor: pointer;
@@ -45,7 +47,7 @@
     display: flex;
     > * {
       margin: 0 0 0 15px;
-      padding-bottom: 5px;
+      padding: 5px 0;
       border-bottom: 1px solid transparent;
     }
   }

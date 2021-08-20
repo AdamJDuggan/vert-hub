@@ -1,3 +1,8 @@
-<button [disabled]="disabled" class="button" [ngClass]="[kind, size]">
+<button
+  [type]="type"
+  [disabled]="disabled"
+  class="button"
+  [ngClass]="[kind, size, class]"
+>
   {{ value }}
 </button>

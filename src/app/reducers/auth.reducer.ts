@@ -1,20 +1,37 @@
-// Ngrx
-import { createAction } from '@ngrx/store';
+// State
+import { createAction, props } from '@ngrx/store';
 import { createReducer, on, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 // Model
 import { Auth } from '../models/auth.model';
 
-const login = createAction('auth/login');
-const logout = createAction('auth/logout');
+export interface IActionWithPayload {
+  type: string;
+  payload?: any;
+}
 
-export const initialState: Auth = { loggedIn: false, email: '' };
+export const setUser = createAction('auth/setUser', props<Auth>());
+
+export const clearUser = createAction('auth/clearUser');
+
+const initialState: Auth = {
+  id: null,
+  loggedIn: false,
+  email: null,
+  name: 'No name!',
+};
 
 const _authReducer = createReducer(
   initialState,
-  on(login, (state) => ({ ...state, loggedIn: true })),
-  on(logout, () => initialState)
+  on(setUser, (state, action) => ({
+    id: action.id,
+    loggedIn: true,
+    email: action.email,
+    name: action.name,
+  })),
+  on(clearUser, (state) => ({ ...state, auth: initialState }))
 );
 
-export function authReducer(state: any, action: Action) {
+export function authReducer(state: any, action: any) {
   return _authReducer(state, action);
 }

@@ -1,0 +1,12 @@
+<div class="input-group" [ngClass]="[class]" [formGroup]="form">
+  <label class="label">{{ label }}</label>
+  <input
+    autocomplete="false"
+    [type]="type"
+    [disabled]="disabled"
+    class="input"
+    [ngClass]="[warning]"
+    [formControlName]="controlName"
+  />
+  <span>{{ error }}</span>
+</div>

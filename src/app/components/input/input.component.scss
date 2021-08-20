@@ -1,0 +1,35 @@
+@import "../../../styles/colors";
+@import "../../../styles/variables";
+
+.input-group > label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: $spacing;
+  font-size: 14px;
+}
+
+.input-group > input {
+  min-height: 30px;
+  padding: $spacing;
+  border: 1px solid $dark;
+  background: white;
+  border-radius: 6px;
+  font-size: 20px;
+  &:focus {
+    outline: none;
+    border: 1px solid $primary;
+  }
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid $danger !important;
+}
+
+.input-group > span {
+  display: block;
+  border-radius: 6px;
+  font-size: 14px;
+  color: $danger;
+  margin: $spacing 0 0 3px;
+  min-height: 17px;
+}

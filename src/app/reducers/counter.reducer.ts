@@ -1,17 +1,19 @@
 import { createReducer, on } from '@ngrx/store';
-import { createAction } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
+const NAME = 'count';
 
-const NAME = 'counter';
-
-export const increment = createAction(`${NAME}/increment`);
+export const increment = createAction(
+  'counter/increment',
+  props<{ value: number }>()
+);
 export const decrement = createAction(`${NAME}/decrement`);
 export const reset = createAction(`${NAME}/reset`);
 
-export const initialState = 0;
+export const initialState = 1;
 
 const _counterReducer = createReducer(
   initialState,
-  on(increment, (state) => state + 1),
+  on(increment, (state, action) => state + action.value),
   on(decrement, (state) => state - 1),
   on(reset, (state) => 0)
 );

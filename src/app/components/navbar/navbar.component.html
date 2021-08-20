@@ -1,11 +1,11 @@
-<div class="bg-primary text-white bold p4 navbar">
+<div class="bg-dark text-white bold p4 navbar">
   <div class="flex space-between-content">
     <a routerLink="" class="logo">VertHub</a>
     <fa-icon
       *ngIf="isMobile"
       (click)="onToggleDropDown()"
       [icon]="menuIcon"
-      class="cursor-pointer"
+      class="cursor-pointer mt1"
     ></fa-icon>
   </div>
   <div
@@ -13,14 +13,15 @@
     class="buttonsWrapper"
   >
     <div *ngIf="loggedIn; else loggedOut" class="buttons text-white">
-      <a routerLink="dashboard/program" href="#">MyProgram</a>
-      <a routerLink="dashboard/hub">Hub</a>
-      <a routerLink="dashboard/profile">Profile</a>
+      <a (click)="onRoute('program')">MyProgram</a>
+      <a (click)="onRoute('hub')">Hub</a>
+      <a (click)="onRoute('profile')">Profile</a>
       <a (click)="logout()">Logout</a>
     </div>
     <ng-template #loggedOut>
       <div class="buttons">
-        <a routerLink="/login">Login</a> <a routerLink="/signup">Sign Up</a>
+        <a (click)="onRoute('login')">Login</a>
+        <a (click)="onRoute('signup')">Sign Up</a>
       </div>
     </ng-template>
   </div>
