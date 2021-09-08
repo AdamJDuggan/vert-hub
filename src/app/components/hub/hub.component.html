@@ -1,4 +1,6 @@
 <h2>Hub</h2>
 <div>Welcome {{ user$.name }}</div>
 <p>{{ count$ }}</p>
-<app-button value="Add" (click)="increment()"></app-button>
+<app-button value="Add 1" (click)="increment(1)"></app-button>
+
+<app-button value="Add 2" (click)="increment(2)"></app-button>

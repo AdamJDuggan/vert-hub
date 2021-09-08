@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 // State
 import { Store } from '@ngrx/store';
-import { clearUser, setUser } from '../reducers/auth.reducer';
+import { clearUser, setUser } from '../store/reducers/auth.reducer';
 import { AppState } from '../models/app-state';
 
 @Injectable({
@@ -14,12 +14,12 @@ export class AuthService {
   loggedIn$ = this.fireAuth.authState;
   constructor(
     public fireAuth: AngularFireAuth,
-    private afs: AngularFirestore,
+    private firestore: AngularFirestore,
     private store: Store<AppState>
   ) {
     this.loggedIn$.subscribe((user) => {
       if (user) {
-        afs
+        firestore
           .collection('users')
           .doc(user.uid)
           .ref.get()
@@ -46,13 +46,14 @@ export class AuthService {
       payload.password
     );
   };
+
   logout = () => this.fireAuth.signOut();
 
   signup = (email: string, password: string, name: string) => {
     return this.fireAuth
       .createUserWithEmailAndPassword(email, password)
       .then((res) => {
-        this.afs.doc('/users/' + res?.user?.uid).set({
+        this.firestore.doc('/users/' + res?.user?.uid).set({
           displayName: name,
           email,
         });

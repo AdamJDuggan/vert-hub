@@ -1,4 +1,6 @@
+import { Error } from './error.model';
+
 export interface Async {
-  errors: [];
+  errors: Error[];
   pending: [];
 }

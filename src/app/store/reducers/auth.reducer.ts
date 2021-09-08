@@ -1,8 +1,8 @@
 // State
 import { createAction, props } from '@ngrx/store';
-import { createReducer, on, Action } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 // Model
-import { Auth } from '../models/auth.model';
+import { Auth } from '../../models/auth.model';
 
 export const setUser = createAction('auth/setUser', props<Auth>());
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   public displayDropDown: boolean = false;
   public menuIcon = faBars;
   public loggedIn: boolean = false;
+  @ViewChild('navbar') navbar: any;
 
   constructor(private authService: AuthService, private router: Router) {
     authService.loggedIn$.subscribe((auth: any) => {
@@ -23,8 +24,21 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  onClick = (e: any) => {
+    const elementArea = this.navbar.nativeElement.getBoundingClientRect();
+    if (
+      (e.clientX < elementArea.left ||
+        e.clientX > elementArea.right ||
+        e.clientY < elementArea.top ||
+        e.clientY > elementArea.bottom) &&
+      this.displayDropDown
+    ) {
+      this.closeDropDown();
+    }
+  };
   ngOnInit() {
     this.isMobile = window.innerWidth <= 700;
+    window.addEventListener('click', this.onClick, true);
   }
 
   openDropDown = () => {

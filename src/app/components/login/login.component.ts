@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AsyncService } from 'src/app/services/async.service';
 
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -12,10 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
   form: FormGroup;
 
-  constructor(
-    private authService: AuthService,
-    private asyncService: AsyncService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -33,6 +29,7 @@ export class LoginComponent implements OnInit {
   };
 
   onSubmit = () =>
+    //this.asyncService.wrapper();
     this.authService
       .login(this.form.value)
       .catch((err) => console.log('MY ERROR', err));
