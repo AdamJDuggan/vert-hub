@@ -14,7 +14,6 @@ export class MovieService {
   getMovies(): Observable<ReadonlyArray<Movie>> {
     return this.http.get<ReadonlyArray<Movie>>(this.url).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.error(error);
         return throwError(error);
       })
     );

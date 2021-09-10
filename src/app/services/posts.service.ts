@@ -1,24 +1,27 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, throwError } from 'rxjs';
-import { Post } from '../models/movie.model';
+import { throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PostService {
-  private url = 'api/movies/';
-  constructor(private afs: AngularFirestore, private http: HttpClient) {}
+export class PostsService {
+  //emit error
+  //source = throwError('This is an error!');
+  // source = this.afs.collection('1posts').valueChanges();
+  // //gracefully handle error, returning observable with error message
+  // example = this.source.pipe(catchError((val) => of(`I caught: ${val}`)));
+  // //output: 'I caught: This is an error'
+  // subscribe = this.example.subscribe((posts) =>
+  //   posts.length ? posts : throwError('ERROR!')
+  //);
+  constructor(private afs: AngularFirestore) {}
 
-  // getPosts(): Observable<ReadonlyArray<Post>> {
-  //   return this.http.get<ReadonlyArray<Post>>(this.url).pipe(
-  //     catchError((error: HttpErrorResponse) => {
-  //       console.error(error);
-  //       return throwError(error);
-  //     })
-  //   );
-  // }
-  // getPosts(): Observable<ReadonlyArray<Post>> {}
+  getPosts = async () => {
+    this.afs
+      .collection('posts')
+      .valueChanges()
+      .subscribe((posts) => (posts.length ? posts : throwError('My error')));
+  };
 }

@@ -6,6 +6,11 @@ export const getMoviesSuccess = createAction(
   '[Movie] Get movie success',
   (movies: ReadonlyArray<Movie>) => ({ movies })
 );
+export const getMoviesFailed = createAction(
+  '[Movie] Add movie failed',
+  (err: Error) => err
+);
+
 export const addMovies = createAction('[Movie] Add movie', (movie: Movie) => ({
   movie,
 }));

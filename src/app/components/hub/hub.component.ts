@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 // Models
 import { AppState } from 'src/app/models/app-state';
+import { PostsService } from 'src/app/services/posts.service';
 
 @Component({
   selector: 'app-hub',
@@ -13,13 +14,18 @@ import { AppState } from 'src/app/models/app-state';
 export class HubComponent implements OnInit {
   count$: any;
   user$: any;
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private store: Store<AppState>,
+    private postsService: PostsService
+  ) {
     store.select('count').subscribe((count) => (this.count$ = count));
     store.select('auth').subscribe((user) => (this.user$ = user));
   }
   increment(payload: number) {
-    console.log(payload);
+    console.log(this.increment);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.postsService.getPosts();
+  }
 }

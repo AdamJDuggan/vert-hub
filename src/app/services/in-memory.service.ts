@@ -14,7 +14,7 @@ export class InMemoryService implements InMemoryDbService {
     };
   }
 
-  private mockMovies(): Movie[] {
+  private mockMovies(): any {
     const movie = new Movie(
       'Avengers: Endgame',
       2798,
@@ -38,6 +38,11 @@ export class InMemoryService implements InMemoryDbService {
     movie2.id = 3;
 
     const movies = [movie, movie1, movie2];
-    return movies;
+    // return movies.length < 4 ? throw Error : movies;
+    if (movies.length > 4) {
+      throw Error;
+    } else {
+      return movies;
+    }
   }
 }
