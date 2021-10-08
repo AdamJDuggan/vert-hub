@@ -39,7 +39,7 @@ export class InMemoryService implements InMemoryDbService {
 
     const movies = [movie, movie1, movie2];
     // return movies.length < 4 ? throw Error : movies;
-    if (movies.length > 4) {
+    if (movies.length < 4) {
       throw Error;
     } else {
       return movies;

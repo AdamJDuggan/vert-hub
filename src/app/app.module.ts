@@ -23,6 +23,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InputComponent } from './components/input/input.component';
+import { ErrorModalComponent } from './components/error-modal/error-modal.component';
+
 // Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -32,6 +34,7 @@ import { StoreModule } from '@ngrx/store';
 import { counterReducer } from './store/reducers/counter.reducer';
 import { authReducer } from './store/reducers/auth.reducer';
 import { movieReducer } from './store/reducers/movie.reducer';
+import { asyncReducer } from './store/reducers/async.reducer';
 // Services
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthRedirectService } from './services/auth-redirect.service';
@@ -55,6 +58,7 @@ import { InMemoryService } from './services/in-memory.service';
     ProfileComponent,
     WelcomeComponent,
     InputComponent,
+    ErrorModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +73,7 @@ import { InMemoryService } from './services/in-memory.service';
       count: counterReducer,
       auth: authReducer,
       movies: movieReducer,
+      async: asyncReducer,
     }),
     EffectsModule.forRoot([MovieEffects]),
     StoreDevtoolsModule.instrument({

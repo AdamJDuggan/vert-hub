@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 // Models
 import { AppState } from 'src/app/models/app-state';
+import { AsyncService } from 'src/app/services/async.service';
 import { PostsService } from 'src/app/services/posts.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class HubComponent implements OnInit {
   user$: any;
   constructor(
     private store: Store<AppState>,
-    private postsService: PostsService
+    private postsService: PostsService,
+    private asyncService: AsyncService
   ) {
     store.select('count').subscribe((count) => (this.count$ = count));
     store.select('auth').subscribe((user) => (this.user$ = user));

@@ -6,6 +6,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Store } from '@ngrx/store';
 import { clearUser, setUser } from '../store/reducers/auth.reducer';
 import { AppState } from '../models/app-state';
+// Actions
+import { pending, resolved, error } from '../store/actions/async.actions';
+import { AsyncService } from './async.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +18,8 @@ export class AuthService {
   constructor(
     public fireAuth: AngularFireAuth,
     private firestore: AngularFirestore,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private asyncService: AsyncService
   ) {
     this.loggedIn$.subscribe((user) => {
       if (user) {
@@ -39,24 +43,45 @@ export class AuthService {
       }
     });
   }
+  // login = this.asyncService.wrapper(
+  //   'auth/login',
+  //   (payload: { email: string; password: string }) =>
+  //     this.fireAuth.signInWithEmailAndPassword(payload.email, payload.password)
+  // );
 
-  login = (payload: { email: string; password: string }): Promise<any> => {
-    return this.fireAuth.signInWithEmailAndPassword(
-      payload.email,
-      payload.password
-    );
+  login = async (payload: { email: string; password: string }) => {
+    this.store.dispatch(pending('auth/login'));
+    try {
+      await this.fireAuth.signInWithEmailAndPassword(
+        payload.email,
+        payload.password
+      );
+      this.store.dispatch(resolved('auth/login'));
+    } catch (err: any) {
+      this.store.dispatch(error({ type: 'auth/login', message: err.message }));
+    }
   };
 
   logout = () => this.fireAuth.signOut();
 
-  signup = (email: string, password: string, name: string) => {
-    return this.fireAuth
-      .createUserWithEmailAndPassword(email, password)
-      .then((res) => {
-        this.firestore.doc('/users/' + res?.user?.uid).set({
-          displayName: name,
-          email,
+  signup = async (payload: {
+    email: string;
+    password: string;
+    name: string;
+  }) => {
+    this.store.dispatch(pending('auth/signup'));
+    try {
+      await this.fireAuth
+        .createUserWithEmailAndPassword(payload.email, payload.password)
+        .then((res) => {
+          this.firestore.doc('/users/' + res?.user?.uid).set({
+            displayName: payload.name,
+            email: payload.email,
+          });
         });
-      });
+      this.store.dispatch(resolved('auth/signup'));
+    } catch (err: any) {
+      this.store.dispatch(error({ type: 'auth/signup', message: err.message }));
+    }
   };
 }

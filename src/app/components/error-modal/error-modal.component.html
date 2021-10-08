@@ -1,0 +1,14 @@
+<div *ngIf="error$" class="overlay">
+  <div class="modal">
+    <div
+      (click)="clearErrors()"
+      class="p1 mt3 mr3 text-right text-danger bold cursor-pointer"
+    >
+      <fa-icon [icon]="closeIcon" size="lg"></fa-icon>
+    </div>
+    <div class="modal-body text-center">
+      <h2 class="bold mb4">Error</h2>
+      <p>{{ message$ }}</p>
+    </div>
+  </div>
+</div>

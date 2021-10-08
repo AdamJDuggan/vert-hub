@@ -1,27 +1,36 @@
+// Angular
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { throwError, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+// Ngrx
+import { Store } from '@ngrx/store';
+// Models
+import { AppState } from '../models/app-state';
+// Actions
+import { pending, resolved, error } from '../store/actions/async.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostsService {
-  //emit error
-  //source = throwError('This is an error!');
-  // source = this.afs.collection('1posts').valueChanges();
-  // //gracefully handle error, returning observable with error message
-  // example = this.source.pipe(catchError((val) => of(`I caught: ${val}`)));
-  // //output: 'I caught: This is an error'
-  // subscribe = this.example.subscribe((posts) =>
-  //   posts.length ? posts : throwError('ERROR!')
-  //);
-  constructor(private afs: AngularFirestore) {}
+  constructor(
+    private afs$: AngularFirestore,
+    private store$: Store<AppState>
+  ) {}
 
-  getPosts = async () => {
-    this.afs
+  getPosts = () => {
+    const NAME = 'posts/get';
+    this.store$.dispatch(pending(NAME));
+    this.afs$
       .collection('posts')
       .valueChanges()
-      .subscribe((posts) => (posts.length ? posts : throwError('My error')));
+      .subscribe((posts) => {
+        if (posts.length) {
+          this.store$.dispatch(resolved(NAME));
+        } else {
+          this.store$.dispatch(
+            error({ type: NAME, message: 'Sorry server failure' })
+          );
+        }
+      });
   };
 }

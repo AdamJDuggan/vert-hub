@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -28,9 +27,5 @@ export class LoginComponent implements OnInit {
     return res;
   };
 
-  onSubmit = () =>
-    //this.asyncService.wrapper();
-    this.authService
-      .login(this.form.value)
-      .catch((err) => console.log('MY ERROR', err));
+  onSubmit = () => this.authService.login(this.form.value);
 }
